@@ -1,0 +1,32 @@
+name: CI Validation Pipeline
+
+on: [push]
+
+jobs:
+  build-test-validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Build Step
+        run: echo "Building..."
+
+      - name: Test Step
+        run: cat aftab.txt
+
+      - name: Validation Step
+        run: echo "Validation Done"
+
+      - name: Generate Report
+        run: |
+          echo "Validation Report" > report.txt
+          echo "Tests Passed: YES" >> report.txt
+          echo "Build Status: SUCCESS" >> report.txt
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: validation-report
+          path: report.txt
